@@ -3,6 +3,12 @@ import hatchLogo from "./assets/logos/hatch.png";
 import appleLogo from "./assets/logos/apple.png";
 import awsLogo from "./assets/logos/aws.png";
 import reliableLogo from "./assets/logos/reliable-robotics.png";
+import heroPhoto from "./assets/photos/hero.jpg";
+import fpgaPhoto from "./assets/photos/fpga.jpg";
+import breadboardPhoto from "./assets/photos/breadboard.jpg";
+import steakPhoto from "./assets/photos/steak.jpg";
+import hikePhoto from "./assets/photos/hike.jpg";
+import clubPhoto from "./assets/photos/club.jpg";
 
 const NAV_LINKS = ["Currently", "About", "Experience", "Projects", "Skills", "Contact"];
 
@@ -78,6 +84,7 @@ const PROJECTS = [
     category: "Hardware / Digital Design",
     icon: "chip",
     color: "#6C63FF",
+    image: fpgaPhoto,
     description:
       "Verilog FSM vending machine on Basys3 FPGA. Accepted nickels/dimes, dispensed soda at 25 cents, handled change, debouncing, edge detection, seven-segment display output, and Vivado simulation/synthesis/bitstream flow.",
     tags: ["Verilog", "FPGA", "Basys3", "FSM", "Vivado"],
@@ -87,6 +94,7 @@ const PROJECTS = [
     category: "Embedded Systems",
     icon: "lock",
     color: "#00C9A7",
+    image: breadboardPhoto,
     description:
       "Embedded safety/security prototype using keypad input, IR motion sensing, servo motor locking, LEDs, watchdog timer behavior, breadboard wiring, external 5V supply for servo, and Tiva C microcontroller programming.",
     tags: ["TM4C123GXL", "TivaWare", "GPIO", "Servos", "IR Sensors"],
@@ -456,12 +464,10 @@ export default function Portfolio() {
 
           <div className="hero-animate hero-animate-3" style={{
             width: 230, aspectRatio: "4 / 5", borderRadius: 18, flexShrink: 0,
-            border: "1px dashed #2a2a38", background: "#0f0f18",
-            display: "flex", alignItems: "center", justifyContent: "center",
+            border: "1px solid #1a1a24", background: "#0f0f18",
+            overflow: "hidden",
           }}>
-            <span className="sans" style={{ fontSize: 12, color: "#4a4a5a", textAlign: "center", padding: 24, lineHeight: 1.6 }}>
-              swap in a real photo of you here
-            </span>
+            <img src={heroPhoto} alt="Josue Benitez" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top center", display: "block" }} />
           </div>
         </div>
 
@@ -513,6 +519,14 @@ export default function Portfolio() {
             <p className="sans" style={{ fontSize: 14, lineHeight: 1.8, color: "#5a5a6a", fontWeight: 300, marginBottom: 20 }}>
               Outside of engineering, I build model kits, cook (steak's my specialty), lift weights, and hike — most recently at Yosemite.
             </p>
+            <div style={{ display: "flex", gap: 10 }}>
+              <div style={{ width: 88, height: 88, borderRadius: 12, overflow: "hidden", flexShrink: 0 }}>
+                <img src={steakPhoto} alt="Steak I cooked" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+              </div>
+              <div style={{ width: 88, height: 88, borderRadius: 12, overflow: "hidden", flexShrink: 0 }}>
+                <img src={hikePhoto} alt="Hiking at Yosemite" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -629,6 +643,9 @@ export default function Portfolio() {
             </h2>
           </div>
           <div className="exp-card">
+            <div style={{ borderRadius: 12, overflow: "hidden", marginBottom: 20, height: 200 }}>
+              <img src={clubPhoto} alt="Fuerza Mexicana Club" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 25%", display: "block" }} />
+            </div>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: 12, marginBottom: 16 }}>
               <div>
                 <h3 className="serif" style={{ fontSize: 22, fontWeight: 400, color: "#e8e6e1" }}>President</h3>
