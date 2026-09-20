@@ -16,8 +16,9 @@ const EXPERIENCES = [
     period: "Summer 2026 — Present",
     color: "#5EC8B8",
     featured: true,
+    logoHasText: true,
     description:
-      "Own end-to-end delivery of Hatch's flagship enterprise WiFi (WPA2-Enterprise / eduroam) provisioning initiative for IoT devices, self-advocated onto the project and now the primary driver behind my team's full-time conversion recommendation. Originally a summer internship, extended part-time through the school year.",
+      "Continuing part-time through the school year after a summer internship on Hatch's Pillar 0 Foundations team, focused on app connectivity and stability. Self-identified and took ownership of the company's flagship enterprise WiFi (WPA2-Enterprise / eduroam) provisioning initiative — proactively reaching out to a Director of Mobile Engineering to get involved rather than waiting to be assigned. Built the BLE-based provisioning flow using EAP/PEAP authentication and RADIUS federation, working closely with a Staff Embedded Engineer on the protocol design, and made key security- and UX-driven design calls around failure handling and onboarding.",
     tags: ["Swift", "BLE", "IoT", "EAP/PEAP", "RADIUS"],
     ongoing: true,
   },
@@ -41,6 +42,7 @@ const EXPERIENCES = [
     location: "Seattle, WA",
     period: "Summer 2024",
     color: "#FF9900",
+    logoHasText: true,
     description:
       "Built an internal tool for the AWS Service Quotas team using Python, AWS S3, Bash scripting, and AWS APIs to improve operational workflows and reduce manual error-mitigation effort.",
     tags: ["Python", "AWS S3", "Bash", "AWS APIs", "Internal Tooling"],
@@ -53,6 +55,7 @@ const EXPERIENCES = [
     location: "Mountain View, CA",
     period: "June 2022 — August 2022",
     color: "#7B92B5",
+    logoHasText: true,
     description:
       "One of the inaugural high school apprentices in Reliable Robotics' apprenticeship program, an aerospace company building autonomous flight systems. Worked independently on a self-directed, Python-based project: an SMS reminder application that sent automated text notifications through mobile carriers' email-to-SMS gateways.",
     tags: ["Python", "SMS Gateways", "Self-Directed"],
@@ -126,67 +129,6 @@ const PROJECTS = [
   },
 ];
 
-function ProjectIcon({ type, color }) {
-  const p = { width: 40, height: 40, viewBox: "0 0 40 40", fill: "none", stroke: color, strokeWidth: 1.4, strokeLinecap: "round", strokeLinejoin: "round" };
-  switch (type) {
-    case "chip":
-      return (
-        <svg {...p}>
-          <rect x="10" y="10" width="20" height="20" rx="3" />
-          <line x1="14" y1="4" x2="14" y2="10" /><line x1="20" y1="4" x2="20" y2="10" /><line x1="26" y1="4" x2="26" y2="10" />
-          <line x1="14" y1="30" x2="14" y2="36" /><line x1="20" y1="30" x2="20" y2="36" /><line x1="26" y1="30" x2="26" y2="36" />
-          <line x1="4" y1="14" x2="10" y2="14" /><line x1="4" y1="20" x2="10" y2="20" /><line x1="4" y1="26" x2="10" y2="26" />
-          <line x1="30" y1="14" x2="36" y2="14" /><line x1="30" y1="20" x2="36" y2="20" /><line x1="30" y1="26" x2="36" y2="26" />
-        </svg>
-      );
-    case "lock":
-      return (
-        <svg {...p}>
-          <rect x="9" y="18" width="22" height="15" rx="2" />
-          <path d="M13 18v-5a7 7 0 0 1 14 0v5" />
-        </svg>
-      );
-    case "layers":
-      return (
-        <svg {...p}>
-          <path d="M20 6 L34 13 L20 20 L6 13 Z" />
-          <path d="M6 20 L20 27 L34 20" />
-          <path d="M6 27 L20 34 L34 27" />
-        </svg>
-      );
-    case "gate":
-      return (
-        <svg {...p}>
-          <path d="M11 9 v22 h6 a11 11 0 0 0 0-22 z" />
-          <line x1="4" y1="14" x2="11" y2="14" /><line x1="4" y1="26" x2="11" y2="26" />
-          <line x1="28" y1="20" x2="36" y2="20" />
-        </svg>
-      );
-    case "pulse":
-      return (
-        <svg {...p}>
-          <polyline points="3,22 12,22 12,10 21,10 21,30 29,30 29,22 37,22" />
-        </svg>
-      );
-    case "code":
-      return (
-        <svg {...p}>
-          <polyline points="16,9 6,20 16,31" />
-          <polyline points="24,9 34,20 24,31" />
-        </svg>
-      );
-    case "wave":
-      return (
-        <svg {...p}>
-          <path d="M3 22 Q10 11 17 22 T31 22" />
-          <path d={`M31 22 L37 17 L37 27 Z`} fill={color} stroke="none" />
-        </svg>
-      );
-    default:
-      return null;
-  }
-}
-
 const SKILLS = [
   {
     category: "Languages",
@@ -214,7 +156,7 @@ const CURRENT_ITEMS = [
   },
   {
     title: "Senior Design / Capstone",
-    body: "Just started building a fish-inspired underwater robot based on the BlueGuppy platform.",
+    body: "Just started building a fish-inspired underwater robot based on the BlueGuppy platform — right now it's more CAD file than fish.",
     color: "#0EA5E9",
   },
   {
@@ -225,21 +167,13 @@ const CURRENT_ITEMS = [
 ];
 
 function CompanyBadge({ text, color, logo }) {
+  if (logo) {
+    return <img src={logo} alt={`${text} logo`} style={{ height: 30, width: "auto", marginBottom: 14, display: "block" }} />;
+  }
   return (
-    <div style={{
-      width: 64, height: 44, borderRadius: 10,
-      background: `${color}14`, border: `1px solid ${color}35`,
-      display: "flex", alignItems: "center", justifyContent: "center",
-      marginBottom: 16,
-    }}>
-      {logo ? (
-        <img src={logo} alt={`${text} logo`} style={{ height: 20, width: "auto" }} />
-      ) : (
-        <span className="sans" style={{ fontSize: 12, fontWeight: 600, letterSpacing: "0.06em", color: color }}>
-          {text}
-        </span>
-      )}
-    </div>
+    <span className="sans" style={{ fontSize: 13, fontWeight: 600, letterSpacing: "0.08em", color, marginBottom: 14, display: "block" }}>
+      {text}
+    </span>
   );
 }
 
@@ -419,6 +353,7 @@ export default function Portfolio() {
           .hero-btns { flex-wrap: wrap !important; }
           .grid-2 { grid-template-columns: 1fr !important; }
           .grid-3 { grid-template-columns: 1fr !important; }
+          .hero-grid { flex-direction: column; }
         }
         @media (min-width: 769px) {
           .mobile-menu-btn { display: none !important; }
@@ -457,7 +392,7 @@ export default function Portfolio() {
         </div>
 
         <button className="btn-primary" style={{ padding: "8px 20px", fontSize: 12 }} onClick={() => scrollTo("contact")}>
-          Get in Touch
+          Say Hi
         </button>
 
         <button className="mobile-menu-btn" onClick={() => setMenuOpen(!menuOpen)}
@@ -486,46 +421,47 @@ export default function Portfolio() {
         justifyContent: "center", padding: "120px 5% 80px",
         position: "relative", overflow: "hidden",
       }}>
-        <div style={{
-          position: "absolute", width: 600, height: 600, borderRadius: "50%",
-          background: "radial-gradient(circle, rgba(108,99,255,0.08) 0%, transparent 70%)",
-          top: "10%", right: "-10%", pointerEvents: "none",
-        }} />
-        <div style={{
-          position: "absolute", width: 400, height: 400, borderRadius: "50%",
-          background: "radial-gradient(circle, rgba(0,201,167,0.06) 0%, transparent 70%)",
-          bottom: "20%", left: "-5%", pointerEvents: "none",
-        }} />
+        <div className="hero-grid" style={{ display: "flex", gap: 56, alignItems: "center", flexWrap: "wrap" }}>
+          <div style={{ maxWidth: 620, position: "relative" }}>
+            <div className="hero-animate hero-animate-1">
+              <span className="section-label">Computer Engineering · Lehigh University · Class of 2027</span>
+            </div>
 
-        <div style={{ maxWidth: 900, position: "relative" }}>
-          <div className="hero-animate hero-animate-1">
-            <span className="section-label">Computer Engineering · Lehigh University · Class of 2027</span>
+            <h1 className="hero-animate hero-animate-2 serif hero-name" style={{
+              fontSize: "clamp(52px, 8vw, 84px)",
+              fontWeight: 400,
+              letterSpacing: "-0.03em",
+              lineHeight: 1.0,
+              marginTop: 24,
+              color: "#e8e6e1",
+            }}>
+              Josue<br />
+              <span style={{ fontStyle: "italic", color: "#6a6860" }}>Benitez</span>
+            </h1>
+
+            <p className="hero-animate hero-animate-3 sans" style={{
+              fontSize: 17, lineHeight: 1.7, color: "#7a7870",
+              maxWidth: 520, marginTop: 28, fontWeight: 300,
+            }}>
+              I like taking things apart to understand them, then building better versions. Lately that's meant iOS code by day, BLE firmware on the side, and a fish robot that swims (eventually).
+            </p>
+
+            <div className="hero-animate hero-animate-4 hero-btns" style={{ display: "flex", gap: 12, marginTop: 40, flexWrap: "wrap" }}>
+              <a className="btn-primary" href="#">Resume</a>
+              <button className="btn-outline" onClick={() => scrollTo("currently")}>What I'm Up To</button>
+              <a className="btn-outline" href="https://linkedin.com" target="_blank" rel="noreferrer">LinkedIn</a>
+              <a className="btn-outline" href="https://github.com/josuebenitez-netizen" target="_blank" rel="noreferrer">GitHub</a>
+            </div>
           </div>
 
-          <h1 className="hero-animate hero-animate-2 serif hero-name" style={{
-            fontSize: "clamp(56px, 9vw, 96px)",
-            fontWeight: 400,
-            letterSpacing: "-0.03em",
-            lineHeight: 1.0,
-            marginTop: 24,
-            color: "#e8e6e1",
+          <div className="hero-animate hero-animate-3" style={{
+            width: 230, aspectRatio: "4 / 5", borderRadius: 18, flexShrink: 0,
+            border: "1px dashed #2a2a38", background: "#0f0f18",
+            display: "flex", alignItems: "center", justifyContent: "center",
           }}>
-            Josue<br />
-            <span style={{ fontStyle: "italic", color: "#6a6860" }}>Benitez</span>
-          </h1>
-
-          <p className="hero-animate hero-animate-3 sans" style={{
-            fontSize: 17, lineHeight: 1.7, color: "#7a7870",
-            maxWidth: 560, marginTop: 28, fontWeight: 300,
-          }}>
-            Interested in embedded systems, software engineering, hardware-software integration, wearable technology, and systems that interact with the real world.
-          </p>
-
-          <div className="hero-animate hero-animate-4 hero-btns" style={{ display: "flex", gap: 12, marginTop: 40, flexWrap: "wrap" }}>
-            <a className="btn-primary" href="#">Resume ↗</a>
-            <button className="btn-outline" onClick={() => scrollTo("projects")}>Projects</button>
-            <a className="btn-outline" href="https://linkedin.com" target="_blank" rel="noreferrer">LinkedIn ↗</a>
-            <a className="btn-outline" href="https://github.com/josuebenitez-netizen" target="_blank" rel="noreferrer">GitHub ↗</a>
+            <span className="sans" style={{ fontSize: 12, color: "#4a4a5a", textAlign: "center", padding: 24, lineHeight: 1.6 }}>
+              swap in a real photo of you here
+            </span>
           </div>
         </div>
 
@@ -561,23 +497,20 @@ export default function Portfolio() {
         <div style={{ display: "grid", gridTemplateColumns: "1fr 2fr", gap: 80, alignItems: "start" }}>
           <div>
             <span className="section-label">About</span>
-            <h2 className="serif" style={{ fontSize: 40, fontWeight: 400, marginTop: 16, letterSpacing: "-0.02em", lineHeight: 1.2 }}>
-              Building at the<br /><em style={{ color: "#6a6860" }}>intersection</em><br />of bits & atoms
+            <h2 className="serif" style={{ fontSize: 36, fontWeight: 400, marginTop: 16, letterSpacing: "-0.02em", lineHeight: 1.2 }}>
+              A bit about me
             </h2>
           </div>
           <div>
             <p className="sans" style={{ fontSize: 16, lineHeight: 1.85, color: "#9a9690", fontWeight: 300, marginBottom: 24 }}>
-              I'm a Computer Engineering student at <span style={{ color: "#e8e6e1" }}>Lehigh University</span>, expected to graduate in <span style={{ color: "#e8e6e1" }}>May 2027</span>. My work spans from writing Verilog for FPGAs to building full-stack web apps — I'm drawn to the full stack of computing, from silicon to software.
-            </p>
-            <p className="sans" style={{ fontSize: 16, lineHeight: 1.85, color: "#9a9690", fontWeight: 300, marginBottom: 32 }}>
-              I'm especially interested in <span style={{ color: "#e8e6e1" }}>embedded systems</span>, microcontrollers, FPGA/digital design, wearable technology, health tech, robotics, and hardware-product roles. I thrive in hands-on environments where debugging is part of the craft.
+              I'm a Computer Engineering student at <span style={{ color: "#e8e6e1" }}>Lehigh University</span> (Class of <span style={{ color: "#e8e6e1" }}>2027</span>), and most of what I do sits somewhere between hardware and software — Verilog on an FPGA one week, Swift shipping to production the next. I like problems where you have to understand the physical world well enough to write code that survives it.
             </p>
             <div style={{ display: "flex", flexWrap: "wrap", gap: 10, marginBottom: 28 }}>
               {["Debugging", "Hands-on Hardware", "Technical Docs", "Fast Learner", "Cross-functional Collab"].map(s => (
                 <span key={s} className="tag">{s}</span>
               ))}
             </div>
-            <p className="sans" style={{ fontSize: 14, lineHeight: 1.8, color: "#5a5a6a", fontWeight: 300 }}>
+            <p className="sans" style={{ fontSize: 14, lineHeight: 1.8, color: "#5a5a6a", fontWeight: 300, marginBottom: 20 }}>
               Outside of engineering, I build model kits, cook (steak's my specialty), lift weights, and hike — most recently at Yosemite.
             </p>
           </div>
@@ -598,8 +531,10 @@ export default function Portfolio() {
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 20, flexWrap: "wrap", gap: 16 }}>
                 <div>
                   <CompanyBadge text={exp.badge} color={exp.color} logo={exp.logo} />
-                  <h3 className="serif" style={{ fontSize: 24, fontWeight: 400, letterSpacing: "-0.02em", color: "#e8e6e1" }}>{exp.company}</h3>
-                  <p className="sans" style={{ fontSize: 14, color: "#7a7870", marginTop: 4 }}>{exp.role}</p>
+                  {!exp.logoHasText && (
+                    <h3 className="serif" style={{ fontSize: 24, fontWeight: 400, letterSpacing: "-0.02em", color: "#e8e6e1" }}>{exp.company}</h3>
+                  )}
+                  <p className="sans" style={{ fontSize: 14, color: "#7a7870", marginTop: exp.logoHasText ? 12 : 4 }}>{exp.role}</p>
                 </div>
                 <div style={{ textAlign: "right" }}>
                   <span className="tag" style={exp.ongoing ? { color: exp.color, borderColor: `${exp.color}40` } : {}}>{exp.period}</span>
@@ -635,32 +570,15 @@ export default function Portfolio() {
         </h2>
         <div className="grid-3" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 20 }}>
           {PROJECTS.map((proj) => (
-            <div key={proj.title} className="card" style={{ display: "flex", flexDirection: "column" }}>
-              <div style={{
-                height: 140, borderRadius: 12, marginBottom: 24,
-                background: `linear-gradient(135deg, ${proj.color}15, ${proj.color}05)`,
-                border: `1px solid ${proj.color}20`,
-                display: "flex", alignItems: "center", justifyContent: "center",
-                fontSize: 40, position: "relative", overflow: "hidden",
-              }}>
-                <div style={{
-                  position: "absolute", inset: 0,
-                  background: `radial-gradient(circle at 30% 50%, ${proj.color}20, transparent 60%)`,
-                }} />
-                <ProjectIcon type={proj.icon} color={proj.color} />
+            <div key={proj.title} className="card" style={{ display: "flex", flexDirection: "column", borderTop: `3px solid ${proj.color}` }}>
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14, flexWrap: "wrap", gap: 8 }}>
+                <span className="sans" style={{ fontSize: 11, color: "#4a4a5a", letterSpacing: "0.1em", textTransform: "uppercase" }}>
+                  {proj.category}
+                </span>
                 {proj.status && (
-                  <div style={{
-                    position: "absolute", top: 12, left: 12,
-                    fontFamily: "'DM Sans', sans-serif", fontSize: 10, fontWeight: 600,
-                    color: proj.color, background: `${proj.color}18`, border: `1px solid ${proj.color}40`,
-                    borderRadius: 100, padding: "4px 10px", letterSpacing: "0.05em", textTransform: "uppercase",
-                  }}>{proj.status}</div>
+                  <span className="tag" style={{ color: proj.color, borderColor: `${proj.color}40` }}>{proj.status}</span>
                 )}
               </div>
-
-              <span className="sans" style={{ fontSize: 11, color: "#4a4a5a", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 8 }}>
-                {proj.category}
-              </span>
               <h3 className="serif" style={{ fontSize: 20, fontWeight: 400, letterSpacing: "-0.01em", color: "#e8e6e1", marginBottom: 12 }}>
                 {proj.title}
               </h3>
@@ -739,7 +657,7 @@ export default function Portfolio() {
           Let's build something<br /><em style={{ color: "#6a6860" }}>together</em>
         </h2>
         <p className="sans" style={{ fontSize: 16, color: "#7a7870", fontWeight: 300, marginBottom: 48, maxWidth: 480, margin: "0 auto 48px" }}>
-          Open to full-time opportunities and internships in embedded systems, software engineering, hardware, and wearable tech.
+          Open to full-time opportunities and internships in embedded systems, software engineering, hardware, and wearable tech — bonus points if you also think fish robots are cool.
         </p>
         <div style={{ display: "flex", gap: 16, justifyContent: "center", flexWrap: "wrap", marginBottom: 60 }}>
           <a className="btn-primary" href="mailto:jbenitez6191@gmail.com">Send an Email ↗</a>
@@ -757,7 +675,7 @@ export default function Portfolio() {
       <footer style={{ borderTop: "1px solid #1a1a24", padding: "24px 5%", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 12 }}>
         <span className="serif" style={{ fontSize: 16, color: "#3a3a48" }}>Josue Benitez</span>
         <span className="sans" style={{ fontSize: 12, color: "#3a3a48", letterSpacing: "0.05em" }}>
-          Computer Engineering · Lehigh University · 2027
+          Computer engineer, occasional chef, professional debugger
         </span>
       </footer>
     </div>
