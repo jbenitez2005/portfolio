@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 
-const NAV_LINKS = ["About", "Experience", "Projects", "Skills", "Contact"];
+const NAV_LINKS = ["Currently", "About", "Experience", "Projects", "Skills", "Contact"];
 
 const EXPERIENCES = [
   {
@@ -41,6 +41,16 @@ const EXPERIENCES = [
 ];
 
 const PROJECTS = [
+  {
+    title: "BlueGuppy Underwater Robot",
+    category: "Senior Design / Capstone",
+    icon: "🐟",
+    color: "#0EA5E9",
+    status: "In Progress",
+    description:
+      "Designing and building a small (under 10cm), untethered, fish-inspired underwater robot based on the open-access BlueGuppy platform. Integrates mechanical design, actuation, electronics, embedded control, and experimental characterization to reproduce two-DoF tunable locomotion from a minimalist single-actuator design, with performance evaluated in a water tank on swimming speed, turning radius, stability, and energy consumption.",
+    tags: ["Raspberry Pi", "3D Printing", "Embedded Control", "Actuation", "Fluid Dynamics"],
+  },
   {
     title: "FPGA Vending Machine",
     category: "Hardware / Digital Design",
@@ -117,6 +127,24 @@ const SKILLS = [
     category: "Concepts",
     icon: "💡",
     items: ["Embedded Systems", "Digital Logic", "Computer Architecture", "Data Structures", "Caching", "Hardware Debugging", "Technical Documentation"],
+  },
+];
+
+const CURRENT_ITEMS = [
+  {
+    title: "Hatch — Ongoing",
+    body: "Continuing part-time work with the IoT connectivity team through the school year.",
+    color: "#5EC8B8",
+  },
+  {
+    title: "Senior Design / Capstone",
+    body: "Just started building a fish-inspired underwater robot based on the BlueGuppy platform.",
+    color: "#0EA5E9",
+  },
+  {
+    title: "Coursework",
+    body: "Taking Power Electronics and Power Systems this term.",
+    color: "#8B5CF6",
   },
 ];
 
@@ -410,7 +438,7 @@ export default function Portfolio() {
             <a className="btn-primary" href="#">Resume ↗</a>
             <button className="btn-outline" onClick={() => scrollTo("projects")}>Projects</button>
             <a className="btn-outline" href="https://linkedin.com" target="_blank" rel="noreferrer">LinkedIn ↗</a>
-            <a className="btn-outline" href="https://github.com" target="_blank" rel="noreferrer">GitHub ↗</a>
+            <a className="btn-outline" href="https://github.com/josuebenitez-netizen" target="_blank" rel="noreferrer">GitHub ↗</a>
           </div>
         </div>
 
@@ -422,6 +450,24 @@ export default function Portfolio() {
           <div style={{ width: 1, height: 40, background: "linear-gradient(to bottom, #6a6860, transparent)" }} />
         </div>
       </section>
+
+      {/* CURRENTLY */}
+      <section id="currently" style={{ padding: "40px 5% 80px", maxWidth: 1100, margin: "0 auto" }}>
+        <span className="section-label">Currently</span>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 32, marginTop: 20 }}>
+          {CURRENT_ITEMS.map((item) => (
+            <div key={item.title} style={{ display: "flex", gap: 12, alignItems: "flex-start", flex: "1 1 260px" }}>
+              <span style={{ width: 6, height: 6, borderRadius: "50%", background: item.color, marginTop: 7, flexShrink: 0, display: "inline-block" }} />
+              <div>
+                <p className="sans" style={{ fontSize: 14, color: "#e8e6e1", fontWeight: 500, marginBottom: 4 }}>{item.title}</p>
+                <p className="sans" style={{ fontSize: 13, lineHeight: 1.6, color: "#7a7870", fontWeight: 300 }}>{item.body}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <div style={{ width: "90%", margin: "0 auto", height: 1, background: "#1a1a24" }} />
 
       {/* ABOUT */}
       <section id="about" style={{ padding: "100px 5%", maxWidth: 1100, margin: "0 auto" }}>
@@ -439,11 +485,14 @@ export default function Portfolio() {
             <p className="sans" style={{ fontSize: 16, lineHeight: 1.85, color: "#9a9690", fontWeight: 300, marginBottom: 32 }}>
               I'm especially interested in <span style={{ color: "#e8e6e1" }}>embedded systems</span>, microcontrollers, FPGA/digital design, wearable technology, health tech, robotics, and hardware-product roles. I thrive in hands-on environments where debugging is part of the craft.
             </p>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 10, marginBottom: 28 }}>
               {["Debugging", "Hands-on Hardware", "Technical Docs", "Fast Learner", "Cross-functional Collab"].map(s => (
                 <span key={s} className="tag">{s}</span>
               ))}
             </div>
+            <p className="sans" style={{ fontSize: 14, lineHeight: 1.8, color: "#5a5a6a", fontWeight: 300 }}>
+              Outside of engineering, I build model kits, cook (steak's my specialty), lift weights, and hike — most recently at Yosemite.
+            </p>
           </div>
         </div>
       </section>
@@ -479,6 +528,14 @@ export default function Portfolio() {
             </div>
           ))}
         </div>
+
+        <div style={{ display: "flex", alignItems: "baseline", gap: 16, flexWrap: "wrap", marginTop: 28, paddingTop: 24, borderTop: "1px solid #1a1a24" }}>
+          <span className="sans" style={{ fontSize: 12, color: "#4a4a5a" }}>Amici's East Coast Pizzeria</span>
+          <span className="sans" style={{ fontSize: 12, color: "#4a4a5a" }}>·</span>
+          <span className="sans" style={{ fontSize: 12, color: "#4a4a5a" }}>Cashier / Host</span>
+          <span className="sans" style={{ fontSize: 12, color: "#4a4a5a" }}>·</span>
+          <span className="sans" style={{ fontSize: 12, color: "#4a4a5a" }}>June 2021 — December 2022</span>
+        </div>
       </section>
 
       <div style={{ width: "90%", margin: "0 auto", height: 1, background: "#1a1a24" }} />
@@ -504,11 +561,14 @@ export default function Portfolio() {
                   background: `radial-gradient(circle at 30% 50%, ${proj.color}20, transparent 60%)`,
                 }} />
                 <span style={{ position: "relative", zIndex: 1 }}>{proj.icon}</span>
-                <div style={{
-                  position: "absolute", bottom: 12, right: 12,
-                  fontFamily: "'DM Sans', sans-serif", fontSize: 10,
-                  color: proj.color, opacity: 0.6, letterSpacing: "0.08em", textTransform: "uppercase",
-                }}>Preview ↗</div>
+                {proj.status && (
+                  <div style={{
+                    position: "absolute", top: 12, left: 12,
+                    fontFamily: "'DM Sans', sans-serif", fontSize: 10, fontWeight: 600,
+                    color: proj.color, background: `${proj.color}18`, border: `1px solid ${proj.color}40`,
+                    borderRadius: 100, padding: "4px 10px", letterSpacing: "0.05em", textTransform: "uppercase",
+                  }}>{proj.status}</div>
+                )}
               </div>
 
               <span className="sans" style={{ fontSize: 11, color: "#4a4a5a", letterSpacing: "0.1em", textTransform: "uppercase", marginBottom: 8 }}>
@@ -569,7 +629,7 @@ export default function Portfolio() {
           <div className="exp-card">
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: 12, marginBottom: 16 }}>
               <div>
-                <h3 className="serif" style={{ fontSize: 22, fontWeight: 400, color: "#e8e6e1" }}>Events Coordinator</h3>
+                <h3 className="serif" style={{ fontSize: 22, fontWeight: 400, color: "#e8e6e1" }}>President</h3>
                 <p className="sans" style={{ fontSize: 14, color: "#7a7870", marginTop: 4 }}>Fuerza Mexicana Club · Bethlehem, PA</p>
               </div>
               <span className="tag">Founding Board Member</span>
@@ -595,16 +655,17 @@ export default function Portfolio() {
           Let's build something<br /><em style={{ color: "#6a6860" }}>together</em>
         </h2>
         <p className="sans" style={{ fontSize: 16, color: "#7a7870", fontWeight: 300, marginBottom: 48, maxWidth: 480, margin: "0 auto 48px" }}>
-          Open to internships, research opportunities, and collaboration in embedded systems, software engineering, hardware, and wearable tech.
+          Open to full-time opportunities and internships in embedded systems, software engineering, hardware, and wearable tech.
         </p>
         <div style={{ display: "flex", gap: 16, justifyContent: "center", flexWrap: "wrap", marginBottom: 60 }}>
-          <a className="btn-primary" href="mailto:josue@example.com">Send an Email ↗</a>
+          <a className="btn-primary" href="mailto:jbenitez6191@gmail.com">Send an Email ↗</a>
           <a className="btn-outline" href="https://linkedin.com" target="_blank" rel="noreferrer">LinkedIn ↗</a>
-          <a className="btn-outline" href="https://github.com" target="_blank" rel="noreferrer">GitHub ↗</a>
+          <a className="btn-outline" href="https://github.com/josuebenitez-netizen" target="_blank" rel="noreferrer">GitHub ↗</a>
+          <a className="btn-outline" href="https://github.com/jbenitez2005" target="_blank" rel="noreferrer">School GitHub ↗</a>
           <a className="btn-outline" href="#">Resume PDF ↗</a>
         </div>
         <p className="sans" style={{ fontSize: 13, color: "#3a3a48" }}>
-          josue@example.com · Bethlehem, PA
+          jbenitez6191@gmail.com · Mountain View, CA
         </p>
       </section>
 
