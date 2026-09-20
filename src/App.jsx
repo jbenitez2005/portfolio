@@ -4,11 +4,24 @@ const NAV_LINKS = ["About", "Experience", "Projects", "Skills", "Contact"];
 
 const EXPERIENCES = [
   {
+    company: "Hatch",
+    badge: "HATCH",
+    role: "Mobile iOS Intern — IoT Connectivity (Pillar 0, Stability)",
+    location: "Redwood City, CA (Hybrid)",
+    period: "Summer 2026 — Present",
+    color: "#5EC8B8",
+    featured: true,
+    description:
+      "Own end-to-end delivery of Hatch's flagship enterprise WiFi (WPA2-Enterprise / eduroam) provisioning initiative for IoT devices, self-advocated onto the project and now the primary driver behind my team's full-time conversion recommendation. Originally a summer internship, extended part-time through the school year.",
+    tags: ["Swift", "BLE", "IoT", "EAP/PEAP", "RADIUS"],
+    ongoing: true,
+  },
+  {
     company: "Apple",
+    badge: "APPLE",
     role: "IS&T Extern",
     location: "Cupertino, CA",
     period: "Summer 2025",
-    logo: "🍎",
     color: "#555",
     description:
       "Built indoor map UI enhancements for the Caffe Macs iOS app using Swift/SwiftUI and Apple's IMDF framework. Delivered a full-screen map view, improved map scaling/navigation interactions, and supported accessibility across the application.",
@@ -16,10 +29,10 @@ const EXPERIENCES = [
   },
   {
     company: "Amazon Web Services",
+    badge: "AWS",
     role: "Software Development Engineer Intern",
     location: "Seattle, WA",
     period: "Summer 2024",
-    logo: "☁️",
     color: "#FF9900",
     description:
       "Built an internal tool for the AWS Service Quotas team using Python, AWS S3, Bash scripting, and AWS APIs to improve operational workflows and reduce manual error-mitigation effort.",
@@ -106,6 +119,21 @@ const SKILLS = [
     items: ["Embedded Systems", "Digital Logic", "Computer Architecture", "Data Structures", "Caching", "Hardware Debugging", "Technical Documentation"],
   },
 ];
+
+function CompanyBadge({ text, color }) {
+  return (
+    <div style={{
+      width: 64, height: 44, borderRadius: 10,
+      background: `${color}14`, border: `1px solid ${color}35`,
+      display: "flex", alignItems: "center", justifyContent: "center",
+      marginBottom: 16,
+    }}>
+      <span className="sans" style={{ fontSize: 12, fontWeight: 600, letterSpacing: "0.06em", color: color }}>
+        {text}
+      </span>
+    </div>
+  );
+}
 
 export default function Portfolio() {
   const [activeSection, setActiveSection] = useState("hero");
@@ -430,19 +458,19 @@ export default function Portfolio() {
         </h2>
         <div className="grid-2" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
           {EXPERIENCES.map((exp) => (
-            <div key={exp.company} className="exp-card">
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 20 }}>
+            <div key={exp.company} className="exp-card" style={exp.featured ? { gridColumn: "1 / -1", borderColor: `${exp.color}40` } : {}}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 20, flexWrap: "wrap", gap: 16 }}>
                 <div>
-                  <div style={{ fontSize: 28, marginBottom: 12 }}>{exp.logo}</div>
+                  <CompanyBadge text={exp.badge} color={exp.color} />
                   <h3 className="serif" style={{ fontSize: 24, fontWeight: 400, letterSpacing: "-0.02em", color: "#e8e6e1" }}>{exp.company}</h3>
                   <p className="sans" style={{ fontSize: 14, color: "#7a7870", marginTop: 4 }}>{exp.role}</p>
                 </div>
                 <div style={{ textAlign: "right" }}>
-                  <span className="tag">{exp.period}</span>
+                  <span className="tag" style={exp.ongoing ? { color: exp.color, borderColor: `${exp.color}40` } : {}}>{exp.period}</span>
                   <p className="sans" style={{ fontSize: 12, color: "#4a4a5a", marginTop: 8 }}>{exp.location}</p>
                 </div>
               </div>
-              <p className="sans" style={{ fontSize: 14, lineHeight: 1.75, color: "#7a7870", fontWeight: 300, marginBottom: 20 }}>
+              <p className="sans" style={{ fontSize: 14, lineHeight: 1.75, color: "#7a7870", fontWeight: 300, marginBottom: 20, maxWidth: exp.featured ? 760 : "none" }}>
                 {exp.description}
               </p>
               <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
