@@ -1,4 +1,8 @@
 import { useState, useEffect, useRef } from "react";
+import hatchLogo from "./assets/logos/hatch.png";
+import appleLogo from "./assets/logos/apple.png";
+import awsLogo from "./assets/logos/aws.png";
+import reliableLogo from "./assets/logos/reliable-robotics.png";
 
 const NAV_LINKS = ["Currently", "About", "Experience", "Projects", "Skills", "Contact"];
 
@@ -6,7 +10,8 @@ const EXPERIENCES = [
   {
     company: "Hatch",
     badge: "HATCH",
-    role: "Mobile iOS Intern — IoT Connectivity (Pillar 0, Stability)",
+    logo: hatchLogo,
+    role: "Mobile iOS Intern — Pillar 0 Foundations (App Connectivity & Stability)",
     location: "Redwood City, CA (Hybrid)",
     period: "Summer 2026 — Present",
     color: "#5EC8B8",
@@ -19,10 +24,11 @@ const EXPERIENCES = [
   {
     company: "Apple",
     badge: "APPLE",
+    logo: appleLogo,
     role: "IS&T Extern",
     location: "Cupertino, CA",
     period: "Summer 2025",
-    color: "#555",
+    color: "#a8a8a8",
     description:
       "Built indoor map UI enhancements for the Caffe Macs iOS app using Swift/SwiftUI and Apple's IMDF framework. Delivered a full-screen map view, improved map scaling/navigation interactions, and supported accessibility across the application.",
     tags: ["Swift", "SwiftUI", "IMDF", "iOS", "Accessibility"],
@@ -30,6 +36,7 @@ const EXPERIENCES = [
   {
     company: "Amazon Web Services",
     badge: "AWS",
+    logo: awsLogo,
     role: "Software Development Engineer Intern",
     location: "Seattle, WA",
     period: "Summer 2024",
@@ -38,13 +45,25 @@ const EXPERIENCES = [
       "Built an internal tool for the AWS Service Quotas team using Python, AWS S3, Bash scripting, and AWS APIs to improve operational workflows and reduce manual error-mitigation effort.",
     tags: ["Python", "AWS S3", "Bash", "AWS APIs", "Internal Tooling"],
   },
+  {
+    company: "Reliable Robotics",
+    badge: "RELIABLE",
+    logo: reliableLogo,
+    role: "High School Apprentice (Inaugural Cohort)",
+    location: "Mountain View, CA",
+    period: "June 2022 — August 2022",
+    color: "#7B92B5",
+    description:
+      "One of the inaugural high school apprentices in Reliable Robotics' apprenticeship program, an aerospace company building autonomous flight systems. Worked independently on a self-directed, Python-based project: an SMS reminder application that sent automated text notifications through mobile carriers' email-to-SMS gateways.",
+    tags: ["Python", "SMS Gateways", "Self-Directed"],
+  },
 ];
 
 const PROJECTS = [
   {
     title: "BlueGuppy Underwater Robot",
     category: "Senior Design / Capstone",
-    icon: "🐟",
+    icon: "wave",
     color: "#0EA5E9",
     status: "In Progress",
     description:
@@ -54,7 +73,7 @@ const PROJECTS = [
   {
     title: "FPGA Vending Machine",
     category: "Hardware / Digital Design",
-    icon: "🎰",
+    icon: "chip",
     color: "#6C63FF",
     description:
       "Verilog FSM vending machine on Basys3 FPGA. Accepted nickels/dimes, dispensed soda at 25 cents, handled change, debouncing, edge detection, seven-segment display output, and Vivado simulation/synthesis/bitstream flow.",
@@ -63,7 +82,7 @@ const PROJECTS = [
   {
     title: "TM4C123GXL Keypad Safety System",
     category: "Embedded Systems",
-    icon: "🔐",
+    icon: "lock",
     color: "#00C9A7",
     description:
       "Embedded safety/security prototype using keypad input, IR motion sensing, servo motor locking, LEDs, watchdog timer behavior, breadboard wiring, external 5V supply for servo, and Tiva C microcontroller programming.",
@@ -72,7 +91,7 @@ const PROJECTS = [
   {
     title: "The Buzz",
     category: "Full-Stack Web",
-    icon: "🐝",
+    icon: "layers",
     color: "#F59E0B",
     description:
       "Full-stack social web app using Java, Javalin, PostgreSQL/Supabase, Google OAuth, comments, voting, admin CLI, caching with Memcachier, HTTP caching headers, and JUnit testing.",
@@ -81,7 +100,7 @@ const PROJECTS = [
   {
     title: "FPGA Full Adder / Carry Look-Ahead Adder Lab",
     category: "Digital Logic",
-    icon: "⚡",
+    icon: "gate",
     color: "#EF4444",
     description:
       "Designed 1-bit full adder, 4-bit ripple carry adder, and carry look-ahead adder in Verilog. Compared area utilization, timing concepts, Vivado synthesis results, and FPGA implementation.",
@@ -90,7 +109,7 @@ const PROJECTS = [
   {
     title: "TM4C123GXL SysTick / Interrupt Labs",
     category: "Embedded Systems",
-    icon: "⏱️",
+    icon: "pulse",
     color: "#8B5CF6",
     description:
       "Built microcontroller labs using GPIO, SysTick timer, interrupts, switch-controlled LED behavior, register-level setup, TivaWare, and oscilloscope validation.",
@@ -99,7 +118,7 @@ const PROJECTS = [
   {
     title: "Route Cipher / Java Data Structures Projects",
     category: "Software / Algorithms",
-    icon: "🧩",
+    icon: "code",
     color: "#10B981",
     description:
       "Software and coursework projects demonstrating Java, OOP, recursion, stacks, iterators, collections, sorting, and algorithmic problem solving.",
@@ -107,33 +126,90 @@ const PROJECTS = [
   },
 ];
 
+function ProjectIcon({ type, color }) {
+  const p = { width: 40, height: 40, viewBox: "0 0 40 40", fill: "none", stroke: color, strokeWidth: 1.4, strokeLinecap: "round", strokeLinejoin: "round" };
+  switch (type) {
+    case "chip":
+      return (
+        <svg {...p}>
+          <rect x="10" y="10" width="20" height="20" rx="3" />
+          <line x1="14" y1="4" x2="14" y2="10" /><line x1="20" y1="4" x2="20" y2="10" /><line x1="26" y1="4" x2="26" y2="10" />
+          <line x1="14" y1="30" x2="14" y2="36" /><line x1="20" y1="30" x2="20" y2="36" /><line x1="26" y1="30" x2="26" y2="36" />
+          <line x1="4" y1="14" x2="10" y2="14" /><line x1="4" y1="20" x2="10" y2="20" /><line x1="4" y1="26" x2="10" y2="26" />
+          <line x1="30" y1="14" x2="36" y2="14" /><line x1="30" y1="20" x2="36" y2="20" /><line x1="30" y1="26" x2="36" y2="26" />
+        </svg>
+      );
+    case "lock":
+      return (
+        <svg {...p}>
+          <rect x="9" y="18" width="22" height="15" rx="2" />
+          <path d="M13 18v-5a7 7 0 0 1 14 0v5" />
+        </svg>
+      );
+    case "layers":
+      return (
+        <svg {...p}>
+          <path d="M20 6 L34 13 L20 20 L6 13 Z" />
+          <path d="M6 20 L20 27 L34 20" />
+          <path d="M6 27 L20 34 L34 27" />
+        </svg>
+      );
+    case "gate":
+      return (
+        <svg {...p}>
+          <path d="M11 9 v22 h6 a11 11 0 0 0 0-22 z" />
+          <line x1="4" y1="14" x2="11" y2="14" /><line x1="4" y1="26" x2="11" y2="26" />
+          <line x1="28" y1="20" x2="36" y2="20" />
+        </svg>
+      );
+    case "pulse":
+      return (
+        <svg {...p}>
+          <polyline points="3,22 12,22 12,10 21,10 21,30 29,30 29,22 37,22" />
+        </svg>
+      );
+    case "code":
+      return (
+        <svg {...p}>
+          <polyline points="16,9 6,20 16,31" />
+          <polyline points="24,9 34,20 24,31" />
+        </svg>
+      );
+    case "wave":
+      return (
+        <svg {...p}>
+          <path d="M3 22 Q10 11 17 22 T31 22" />
+          <path d={`M31 22 L37 17 L37 27 Z`} fill={color} stroke="none" />
+        </svg>
+      );
+    default:
+      return null;
+  }
+}
+
 const SKILLS = [
   {
     category: "Languages",
-    icon: "{ }",
     items: ["C", "C++", "Java", "Python", "Swift", "Verilog", "JavaScript", "SQL"],
   },
   {
-    category: "Hardware/Embedded",
-    icon: "⚙️",
-    items: ["TM4C123GXL", "TivaWare", "GPIO", "SysTick", "Interrupts", "Watchdog Timers", "Sensors", "Servos", "FPGA", "Basys3", "Vivado"],
+    category: "Hardware & Embedded",
+    items: ["TM4C123GXL", "TivaWare", "GPIO", "SysTick", "Interrupts", "Watchdog Timers", "Sensors", "Servos", "FPGA", "Basys3", "Vivado", "BLE"],
   },
   {
-    category: "Software/Tools",
-    icon: "🛠",
-    items: ["Git", "GitHub", "PostgreSQL", "Supabase", "Javalin", "JUnit", "AWS S3", "Bash", "Google OAuth"],
+    category: "Software & Tools",
+    items: ["Git", "GitHub", "PostgreSQL", "Supabase", "Javalin", "JUnit", "AWS S3", "Bash", "Google OAuth", "Bugsee", "Jira"],
   },
   {
     category: "Concepts",
-    icon: "💡",
-    items: ["Embedded Systems", "Digital Logic", "Computer Architecture", "Data Structures", "Caching", "Hardware Debugging", "Technical Documentation"],
+    items: ["Embedded Systems", "Digital Logic", "Computer Architecture", "Data Structures", "Caching", "Hardware Debugging", "Technical Documentation", "IoT Connectivity"],
   },
 ];
 
 const CURRENT_ITEMS = [
   {
     title: "Hatch — Ongoing",
-    body: "Continuing part-time work with the IoT connectivity team through the school year.",
+    body: "Continuing part-time work with the Pillar 0 Foundations team through the school year.",
     color: "#5EC8B8",
   },
   {
@@ -143,12 +219,12 @@ const CURRENT_ITEMS = [
   },
   {
     title: "Coursework",
-    body: "Taking Power Electronics and Power Systems this term.",
+    body: "Taking Power Electronics, Power Systems, and Operating Systems this term.",
     color: "#8B5CF6",
   },
 ];
 
-function CompanyBadge({ text, color }) {
+function CompanyBadge({ text, color, logo }) {
   return (
     <div style={{
       width: 64, height: 44, borderRadius: 10,
@@ -156,9 +232,13 @@ function CompanyBadge({ text, color }) {
       display: "flex", alignItems: "center", justifyContent: "center",
       marginBottom: 16,
     }}>
-      <span className="sans" style={{ fontSize: 12, fontWeight: 600, letterSpacing: "0.06em", color: color }}>
-        {text}
-      </span>
+      {logo ? (
+        <img src={logo} alt={`${text} logo`} style={{ height: 20, width: "auto" }} />
+      ) : (
+        <span className="sans" style={{ fontSize: 12, fontWeight: 600, letterSpacing: "0.06em", color: color }}>
+          {text}
+        </span>
+      )}
     </div>
   );
 }
@@ -323,6 +403,11 @@ export default function Portfolio() {
           margin: 0 4px;
         }
 
+        .hamburger-line {
+          display: block; width: 20px; height: 1.5px; background: #e8e6e1;
+          margin: 4px 0; transition: all 0.2s;
+        }
+
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #0a0a0f; }
         ::-webkit-scrollbar-thumb { background: #2a2a38; border-radius: 3px; }
@@ -376,8 +461,10 @@ export default function Portfolio() {
         </button>
 
         <button className="mobile-menu-btn" onClick={() => setMenuOpen(!menuOpen)}
-          style={{ background: "none", border: "none", color: "#e8e6e1", fontSize: 22, cursor: "pointer", display: "none", alignItems: "center" }}>
-          {menuOpen ? "✕" : "☰"}
+          style={{ background: "none", border: "none", cursor: "pointer", display: "none", flexDirection: "column", alignItems: "flex-end", padding: 8 }}>
+          <span className="hamburger-line" style={{ transform: menuOpen ? "rotate(45deg) translate(4px, 5px)" : "none" }} />
+          <span className="hamburger-line" style={{ opacity: menuOpen ? 0 : 1 }} />
+          <span className="hamburger-line" style={{ width: menuOpen ? 20 : 14, transform: menuOpen ? "rotate(-45deg) translate(3px, -4px)" : "none" }} />
         </button>
       </nav>
 
@@ -510,7 +597,7 @@ export default function Portfolio() {
             <div key={exp.company} className="exp-card" style={exp.featured ? { gridColumn: "1 / -1", borderColor: `${exp.color}40` } : {}}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 20, flexWrap: "wrap", gap: 16 }}>
                 <div>
-                  <CompanyBadge text={exp.badge} color={exp.color} />
+                  <CompanyBadge text={exp.badge} color={exp.color} logo={exp.logo} />
                   <h3 className="serif" style={{ fontSize: 24, fontWeight: 400, letterSpacing: "-0.02em", color: "#e8e6e1" }}>{exp.company}</h3>
                   <p className="sans" style={{ fontSize: 14, color: "#7a7870", marginTop: 4 }}>{exp.role}</p>
                 </div>
@@ -560,7 +647,7 @@ export default function Portfolio() {
                   position: "absolute", inset: 0,
                   background: `radial-gradient(circle at 30% 50%, ${proj.color}20, transparent 60%)`,
                 }} />
-                <span style={{ position: "relative", zIndex: 1 }}>{proj.icon}</span>
+                <ProjectIcon type={proj.icon} color={proj.color} />
                 {proj.status && (
                   <div style={{
                     position: "absolute", top: 12, left: 12,
@@ -599,12 +686,9 @@ export default function Portfolio() {
         <div className="grid-2" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
           {SKILLS.map((group) => (
             <div key={group.category} className="card">
-              <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 20 }}>
-                <span style={{ fontSize: 20 }}>{group.icon}</span>
-                <span className="sans" style={{ fontSize: 12, fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", color: "#5a5a6a" }}>
-                  {group.category}
-                </span>
-              </div>
+              <span className="sans" style={{ fontSize: 12, fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", color: "#5a5a6a", marginBottom: 20, display: "block" }}>
+                {group.category}
+              </span>
               <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
                 {group.items.map(item => (
                   <span key={item} className="skill-chip">{item}</span>
