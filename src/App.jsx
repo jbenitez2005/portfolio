@@ -455,9 +455,9 @@ export default function Portfolio() {
             </p>
 
             <div className="hero-animate hero-animate-4 hero-btns" style={{ display: "flex", gap: 12, marginTop: 40, flexWrap: "wrap" }}>
-              <a className="btn-primary" href="#">Resume</a>
+              <a className="btn-primary" href={`${import.meta.env.BASE_URL}resume.pdf`} target="_blank" rel="noreferrer">Resume</a>
               <button className="btn-outline" onClick={() => scrollTo("currently")}>What I'm Up To</button>
-              <a className="btn-outline" href="https://linkedin.com" target="_blank" rel="noreferrer">LinkedIn</a>
+              <a className="btn-outline" href="https://www.linkedin.com/in/josue-benitez/" target="_blank" rel="noreferrer">LinkedIn</a>
               <a className="btn-outline" href="https://github.com/josuebenitez-netizen" target="_blank" rel="noreferrer">GitHub</a>
             </div>
           </div>
@@ -678,10 +678,10 @@ export default function Portfolio() {
         </p>
         <div style={{ display: "flex", gap: 16, justifyContent: "center", flexWrap: "wrap", marginBottom: 60 }}>
           <a className="btn-primary" href="mailto:jbenitez6191@gmail.com">Send an Email ↗</a>
-          <a className="btn-outline" href="https://linkedin.com" target="_blank" rel="noreferrer">LinkedIn ↗</a>
+          <a className="btn-outline" href="https://www.linkedin.com/in/josue-benitez/" target="_blank" rel="noreferrer">LinkedIn ↗</a>
           <a className="btn-outline" href="https://github.com/josuebenitez-netizen" target="_blank" rel="noreferrer">GitHub ↗</a>
           <a className="btn-outline" href="https://github.com/jbenitez2005" target="_blank" rel="noreferrer">School GitHub ↗</a>
-          <a className="btn-outline" href="#">Resume PDF ↗</a>
+          <a className="btn-outline" href={`${import.meta.env.BASE_URL}resume.pdf`} target="_blank" rel="noreferrer">Resume PDF ↗</a>
         </div>
         <p className="sans" style={{ fontSize: 13, color: "#3a3a48" }}>
           jbenitez6191@gmail.com · Mountain View, CA
