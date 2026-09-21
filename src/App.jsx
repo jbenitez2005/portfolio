@@ -21,13 +21,13 @@ const EXPERIENCES = [
     logo: hatchLogo,
     role: "Mobile iOS Intern — Pillar 0 Foundations (App Connectivity & Stability)",
     location: "Redwood City, CA (Hybrid)",
-    period: "Summer 2026 — Present",
+    period: "June 2026 — Present",
     color: "#5EC8B8",
     featured: true,
     logoHasText: true,
     screenshot: eduroamScreenshot,
     description:
-      "Implemented the mobile side of the company's first enterprise WiFi support for college students (WPA2-Enterprise / eduroam). Proactively reached out to the Director of Mobile Engineering to get involved on the project. Worked closely with the embedded side to build out the BLE-based provisioning flow using EAP/PEAP authentication and RADIUS servers. Also spent time on the hardware side of things, reading UART output on development boards to figure out where a connection was breaking down between the app and the firmware. Made key security- and UX-driven design calls around failure handling and onboarding.",
+      "Implemented iOS support for WPA2-Enterprise networks, enabling Hatch IoT devices to be configured on college networks such as eduroam. Collaborated with firmware and QA engineers on the BLE provisioning flow and used UART output from development boards to diagnose failures across the app-to-firmware boundary.",
     tags: ["Swift", "BLE", "IoT", "EAP/PEAP", "RADIUS"],
     ongoing: true,
   },
@@ -122,35 +122,31 @@ const PROJECTS = [
     color: "#00C9A7",
     images: [breadboardPhoto],
     description:
-      "A keypad-and-sensor security prototype on a Tiva C microcontroller — motion sensing, a servo-driven lock, and watchdog-timer recovery, all wired up on a breadboard.",
+      "A keypad access control system on a Tiva C microcontroller — a Moore finite-state machine handles authentication, lock control, and alarm logic, with a 10-second no-motion auto-relock.",
     challenge:
-      "Combine several independent hardware inputs — keypad entry, IR motion sensing — with a physical actuator (a servo acting as a lock) and register-level microcontroller code, in a system that has to fail safely if something goes wrong.",
+      "Combine several independent hardware inputs — keypad entry, IR motion sensing — with a physical actuator (a servo acting as the lock) and state-machine logic that has to fail safely: lock back up after too many wrong attempts, and after a period with no motion nearby.",
     approach:
-      "Built out the circuit on a breadboard: keypad matrix scanning, an IR motion sensor, LEDs for status feedback, and a servo for the physical lock, all driven from the TM4C123GXL with a watchdog timer to catch and recover from unexpected hangs.",
+      "Modeled the system as a Moore FSM handling authentication, lock control, and alarm behavior, triggering an alarm after three incorrect password attempts. Wired up a 4x4 keypad, an IR motion sensor, a PWM-driven servo for the lock, an ADC-read potentiometer, and status LEDs, in embedded C using TivaWare. Added UART state reporting and a 10-second no-motion auto-relock so the system doesn't stay unlocked indefinitely.",
     debugging:
       "The servo worked fine in isolation, then started behaving erratically the moment everything else was wired in — classic shared-power-rail noise, where the servo's current draw was dipping the voltage enough to glitch the rest of the logic. The fix was pulling the servo onto its own external 5V supply instead of sharing the board's rail.",
     learned:
       "In embedded systems, the bug is just as often in the power delivery as it is in the code — and it's usually the last place you think to look.",
-    tags: ["TM4C123GXL", "TivaWare", "GPIO", "Servos", "IR Sensors"],
+    tags: ["TM4C123GXL", "TivaWare", "PWM", "ADC", "UART", "GPIO"],
   },
 ];
 
 const SKILLS = [
   {
-    category: "Languages",
-    items: ["C", "C++", "Java", "Python", "Swift", "Verilog", "JavaScript", "SQL"],
-  },
-  {
     category: "Hardware & Embedded",
-    items: ["TM4C123GXL", "TivaWare", "GPIO", "SysTick", "Interrupts", "Watchdog Timers", "Sensors", "Servos", "FPGA", "Basys3", "Vivado", "BLE"],
+    items: ["C", "C++", "Verilog", "FPGA", "TM4C123GXL", "TivaWare", "UART", "GPIO", "PWM", "ADC", "SysTick", "Interrupts", "Basys3", "Vivado", "BLE"],
   },
   {
-    category: "Software & Tools",
-    items: ["Git", "GitHub", "PostgreSQL", "Supabase", "Javalin", "JUnit", "AWS S3", "Bash", "Google OAuth", "Bugsee", "Jira"],
+    category: "Languages & Software",
+    items: ["Java", "Python", "Swift", "JavaScript", "SQL", "Git", "GitHub", "PostgreSQL", "Supabase", "Javalin", "JUnit", "AWS S3", "Bash", "Google OAuth"],
   },
   {
     category: "Concepts",
-    items: ["Embedded Systems", "Digital Logic", "Computer Architecture", "Data Structures", "Caching", "Hardware Debugging", "Technical Documentation", "IoT Connectivity"],
+    items: ["Embedded Debugging", "Hardware Validation", "IoT Connectivity", "Digital Logic", "Computer Architecture", "Data Structures", "Technical Documentation"],
   },
 ];
 
@@ -304,6 +300,8 @@ export default function Portfolio() {
         }
 
         .project-card:hover h3 { text-decoration: underline; text-decoration-color: currentColor; }
+        .project-card:focus-visible { outline: 2px solid #232019; outline-offset: 2px; }
+        .project-card-cta:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
 
         .modal-overlay {
           position: fixed; inset: 0; z-index: 200;
@@ -458,7 +456,7 @@ export default function Portfolio() {
               fontSize: 17, lineHeight: 1.7, color: "#6b6459",
               maxWidth: 520, marginTop: 28, fontWeight: 300,
             }}>
-              Interested in the space between hardware and software: embedded systems, iOS development, and real life systems.
+              Computer Engineering student building at the intersection of hardware and software, with experience in embedded systems, IoT connectivity, and iOS development.
             </p>
 
             <div className="hero-animate hero-animate-4 hero-btns" style={{ display: "flex", gap: 12, marginTop: 40, flexWrap: "wrap" }}>
@@ -615,6 +613,15 @@ export default function Portfolio() {
               key={proj.title}
               className="card project-card"
               onClick={() => setSelectedProject(proj)}
+              role="button"
+              tabIndex={0}
+              aria-label={`View details for ${proj.title}`}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  setSelectedProject(proj);
+                }
+              }}
               style={{ display: "flex", flexDirection: "column", borderTop: `3px solid ${proj.color}`, padding: proj.images ? 0 : 32, overflow: "hidden", cursor: "pointer" }}
             >
               {proj.images && (
@@ -640,9 +647,13 @@ export default function Portfolio() {
                 <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 16 }}>
                   {proj.tags.map(t => <span key={t} className="tag">{t}</span>)}
                 </div>
-                <span className="sans" style={{ fontSize: 12, fontWeight: 600, color: proj.color }}>
+                <button
+                  className="sans project-card-cta"
+                  onClick={(e) => { e.stopPropagation(); setSelectedProject(proj); }}
+                  style={{ fontSize: 12, fontWeight: 600, color: proj.color, background: "none", border: "none", padding: 0, textAlign: "left", cursor: "pointer", width: "fit-content" }}
+                >
                   View project →
-                </span>
+                </button>
               </div>
             </div>
           ))}
@@ -693,10 +704,10 @@ export default function Portfolio() {
                 <h3 className="serif" style={{ fontSize: 22, fontWeight: 400, color: "#232019" }}>President</h3>
                 <p className="sans" style={{ fontSize: 14, color: "#6b6459", marginTop: 4 }}>Fuerza Mexicana Club · Bethlehem, PA</p>
               </div>
-              <span className="tag">Founding Board Member</span>
+              <span className="tag">Since 2024</span>
             </div>
             <p className="sans" style={{ fontSize: 14, lineHeight: 1.8, color: "#6b6459", fontWeight: 300 }}>
-              Founding executive board member helping plan cultural events, coordinate logistics, communicate with student organizations, and showcase Mexican culture and diversity on campus.
+              Progressed from founding executive board member to president, leading an eight-member board, setting organizational strategy and budgets, driving 25% membership growth, and launching three new event series celebrating Mexican culture.
             </p>
           </div>
         </div>
@@ -716,10 +727,10 @@ export default function Portfolio() {
           Let's build something<br /><em style={{ color: "#8a8374" }}>together</em>
         </h2>
         <p className="sans" style={{ fontSize: 16, color: "#6b6459", fontWeight: 300, marginBottom: 48, maxWidth: 480, margin: "0 auto 48px" }}>
-          Open to full-time opportunities and internships in embedded systems, software engineering, hardware, and wearable tech.
+          Open to full-time opportunities in embedded systems, hardware validation and test, IoT, and systems software.
         </p>
         <div style={{ display: "flex", gap: 16, justifyContent: "center", flexWrap: "wrap", marginBottom: 60 }}>
-          <a className="btn-primary" href="mailto:jbenitez6191@gmail.com">Send an Email</a>
+          <a className="btn-primary" href="https://mail.google.com/mail/?view=cm&fs=1&to=jbenitez6191@gmail.com" target="_blank" rel="noreferrer">Send an Email</a>
           <a className="btn-outline" href="https://www.linkedin.com/in/josue-benitez/" target="_blank" rel="noreferrer">LinkedIn</a>
           <a className="btn-outline" href="https://github.com/jbenitez2005" target="_blank" rel="noreferrer">GitHub</a>
           <a className="btn-outline" href={`${import.meta.env.BASE_URL}resume.pdf`} target="_blank" rel="noreferrer">Resume PDF</a>
