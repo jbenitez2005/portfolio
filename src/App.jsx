@@ -505,7 +505,7 @@ export default function Portfolio() {
 
       {/* ABOUT */}
       <section id="about" style={{ padding: "100px 5%", maxWidth: 1100, margin: "0 auto" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 2fr", gap: 80, alignItems: "start" }}>
+        <div className="grid-2" style={{ display: "grid", gridTemplateColumns: "1fr 2fr", gap: 80, alignItems: "start" }}>
           <div>
             <span className="section-label">About</span>
             <h2 className="serif" style={{ fontSize: 36, fontWeight: 400, marginTop: 16, letterSpacing: "-0.02em", lineHeight: 1.2 }}>
@@ -688,7 +688,7 @@ export default function Portfolio() {
 
       {/* LEADERSHIP */}
       <section id="leadership" style={{ padding: "100px 5%", maxWidth: 1100, margin: "0 auto" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 2fr", gap: 80, alignItems: "start" }}>
+        <div className="grid-2" style={{ display: "grid", gridTemplateColumns: "1fr 2fr", gap: 80, alignItems: "start" }}>
           <div>
             <span className="section-label">Leadership</span>
             <h2 className="serif" style={{ fontSize: 40, fontWeight: 400, marginTop: 16, letterSpacing: "-0.02em", lineHeight: 1.2 }}>
